@@ -1,4 +1,4 @@
-﻿# zPanel License Automation Module for WHMCS
+# zPanel License Automation Module for WHMCS
 
 zPanel Partner API v1 Lisans provizyonlama ve otomatik anahtar üretimi modülü.
 
