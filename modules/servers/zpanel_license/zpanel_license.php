@@ -172,6 +172,10 @@ function zpanel_license_AdminSingleSignOn(array $params) {
     ];
 }
 
+function zpanel_license_AdminServicesTabFieldsSave(array $params) {
+    return 'success';
+}
+
 function zpanel_license_ClientArea(array $params) {
     $mgr = new Manager($params);
     $tplVars = $mgr->getClientAreaParams();
