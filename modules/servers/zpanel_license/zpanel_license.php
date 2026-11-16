@@ -136,12 +136,18 @@ function zpanel_license_update_ip(array $params) {
     }
 }
 
+function zpanel_license_ChangePackage(array $params) {
+    return 'success';
+}
+
 function zpanel_license_ClientArea(array $params) {
     $mgr = new Manager($params);
     $tplVars = $mgr->getClientAreaParams();
 
+    $templateFile = file_exists(__DIR__ . '/templates/overview.tpl') ? 'templates/overview.tpl' : 'clientarea.tpl';
+
     return [
-        'tabOverviewReplacementTemplate' => 'clientarea.tpl',
+        'tabOverviewReplacementTemplate' => $templateFile,
         'templateVariables' => $tplVars,
     ];
 }

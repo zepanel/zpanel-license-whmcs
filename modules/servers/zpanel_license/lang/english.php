@@ -9,3 +9,4 @@ $_LANG['zpanel_license_update_ip'] = 'Update IP Address';
 $_LANG['zpanel_license_copy'] = 'Copy License Key';
 $_LANG['zpanel_license_copied'] = 'Copied!';
 $_LANG['zpanel_license_install_command'] = 'Quick Installation Command';
+
