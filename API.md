@@ -79,3 +79,4 @@ Yeni kurulan sunucuda lisans aktivasyonu:
 curl -fsSL https://get.zepanel.com/install.sh | bash -s -- --license=ZP-PRO-8829-1142-9901
 ```
 Panel aktif edildiğinde web sunucusu (zMaxServer - OpenLiteSpeed LSAPI) otomatik olarak 8026 (Client), 8036 (Root) ve 8046 (Webmail) portlarında dinlemeye başlar.
+

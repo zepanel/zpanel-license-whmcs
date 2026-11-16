@@ -225,21 +225,38 @@ class Manager
         $licenseRowId = '';
         $serverIp = $this->params['domain'] ?? '';
 
-        // 1. Önce tblhosting password alanını oku
-        if (!empty($this->params['password'])) {
+        // 1. Önce params['customfields'] ve tblhosting password alanını oku
+        if (!empty($this->params['customfields']['license_key'])) {
+            $licenseKey = $this->params['customfields']['license_key'];
+        } elseif (!empty($this->params['password'])) {
             $licenseKey = $this->params['password'];
         }
 
-        // 2. Custom fields'dan oku
-        $customLicenseKey = $this->getCustomFieldValue($serviceId, 'license_key');
-        if (!empty($customLicenseKey)) {
-            $licenseKey = $customLicenseKey;
+        if (!empty($this->params['customfields']['license_row_id'])) {
+            $licenseRowId = (string)$this->params['customfields']['license_row_id'];
         }
 
-        $licenseRowId = $this->getCustomFieldValue($serviceId, 'license_row_id');
-        $customIp = $this->getCustomFieldValue($serviceId, 'server_ip');
-        if (!empty($customIp)) {
-            $serverIp = $customIp;
+        if (!empty($this->params['customfields']['server_ip'])) {
+            $serverIp = $this->params['customfields']['server_ip'];
+        }
+
+        // 2. Custom fields'dan veritabanı yedeği oku (eğer params içinde yoksa)
+        if (empty($licenseKey)) {
+            $customLicenseKey = $this->getCustomFieldValue($serviceId, 'license_key');
+            if (!empty($customLicenseKey)) {
+                $licenseKey = $customLicenseKey;
+            }
+        }
+
+        if (empty($licenseRowId)) {
+            $licenseRowId = $this->getCustomFieldValue($serviceId, 'license_row_id');
+        }
+
+        if (empty($serverIp)) {
+            $customIp = $this->getCustomFieldValue($serviceId, 'server_ip');
+            if (!empty($customIp)) {
+                $serverIp = $customIp;
+            }
         }
 
         return [
@@ -259,6 +276,10 @@ class Manager
      */
     private function saveCustomFieldValue(int $serviceId, string $fieldName, string $value): void
     {
+        if (!class_exists('WHMCS\Database\Capsule')) {
+            return;
+        }
+
         $field = Capsule::table('tblcustomfields')
             ->where('type', 'product')
             ->where('relid', $this->params['packageid'] ?? 0)
@@ -278,6 +299,10 @@ class Manager
      */
     private function getCustomFieldValue(int $serviceId, string $fieldName): string
     {
+        if (!class_exists('WHMCS\Database\Capsule')) {
+            return '';
+        }
+
         $field = Capsule::table('tblcustomfields')
             ->where('type', 'product')
             ->where('relid', $this->params['packageid'] ?? 0)
