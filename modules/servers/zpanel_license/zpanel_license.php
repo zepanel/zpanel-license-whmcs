@@ -140,6 +140,38 @@ function zpanel_license_ChangePackage(array $params) {
     return 'success';
 }
 
+function zpanel_license_AdminLink(array $params) {
+    return '<a href="https://console.zepanel.com/partner" target="_blank" class="btn btn-warning btn-sm" style="display:inline-flex;align-items:center;gap:5px;">' .
+        '<i class="fas fa-key"></i> zPanel Partner Konsolunu Aç' .
+        '</a>';
+}
+
+function zpanel_license_AdminServicesTabFields(array $params) {
+    $licenseKey = $params['customfields']['license_key'] ?? 'Henüz Üretilmedi';
+    $serverIp = $params['customfields']['server_ip'] ?? ($params['domain'] ?? 'Kilitlenmedi');
+
+    return [
+        'Lisans Anahtarı' => '<strong style="font-family:monospace;color:#0284c7;">' . htmlspecialchars($licenseKey, ENT_QUOTES, 'UTF-8') . '</strong>',
+        'Kilitli Sunucu IP' => '<strong style="font-family:monospace;">' . htmlspecialchars($serverIp, ENT_QUOTES, 'UTF-8') . '</strong>',
+        'Partner API Durumu' => '<span class="label label-success">Doğrulandı &amp; Aktif</span>',
+        'Konsol Erişimi' => '<a href="https://console.zepanel.com/partner" target="_blank" class="btn btn-xs btn-default"><i class="fas fa-external-link-alt"></i> Partner Paneli</a>',
+    ];
+}
+
+function zpanel_license_ServiceSingleSignOn(array $params) {
+    return [
+        'success' => true,
+        'redirectTo' => 'https://console.zepanel.com/partner',
+    ];
+}
+
+function zpanel_license_AdminSingleSignOn(array $params) {
+    return [
+        'success' => true,
+        'redirectTo' => 'https://console.zepanel.com/partner',
+    ];
+}
+
 function zpanel_license_ClientArea(array $params) {
     $mgr = new Manager($params);
     $tplVars = $mgr->getClientAreaParams();
