@@ -141,7 +141,7 @@ function zpanel_license_ChangePackage(array $params) {
 }
 
 function zpanel_license_AdminLink(array $params) {
-    return '<a href="https://console.zepanel.com/partner" target="_blank" class="btn btn-warning btn-sm" style="display:inline-flex;align-items:center;gap:5px;">' .
+    return '<a href="https://console.zepanel.com/partner" target="_blank" class="btn btn-warning btn-sm">' .
         '<i class="fas fa-key"></i> zPanel Partner Konsolunu Aç' .
         '</a>';
 }
@@ -151,8 +151,8 @@ function zpanel_license_AdminServicesTabFields(array $params) {
     $serverIp = $params['customfields']['server_ip'] ?? ($params['domain'] ?? 'Kilitlenmedi');
 
     return [
-        'Lisans Anahtarı' => '<strong style="font-family:monospace;color:#0284c7;">' . htmlspecialchars($licenseKey, ENT_QUOTES, 'UTF-8') . '</strong>',
-        'Kilitli Sunucu IP' => '<strong style="font-family:monospace;">' . htmlspecialchars($serverIp, ENT_QUOTES, 'UTF-8') . '</strong>',
+        'Lisans Anahtarı' => '<code class="text-primary">' . htmlspecialchars($licenseKey, ENT_QUOTES, 'UTF-8') . '</code>',
+        'Kilitli Sunucu IP' => '<code>' . htmlspecialchars($serverIp, ENT_QUOTES, 'UTF-8') . '</code>',
         'Partner API Durumu' => '<span class="label label-success">Doğrulandı &amp; Aktif</span>',
         'Konsol Erişimi' => '<a href="https://console.zepanel.com/partner" target="_blank" class="btn btn-xs btn-default"><i class="fas fa-external-link-alt"></i> Partner Paneli</a>',
     ];
